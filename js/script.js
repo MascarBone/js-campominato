@@ -20,8 +20,8 @@
 
 
 let mineField = [];
-let totaleMine = 16;
-let totaleTentativi = 100;
+let totaleMine = 4;
+let totaleTentativi = 10;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
@@ -45,7 +45,6 @@ function genNum (max, min)
 function minaSetting (mines)
 {
     let list = [];
-    let i = 0;
     do
     {
         let num = genNum(100,1);
@@ -53,9 +52,8 @@ function minaSetting (mines)
         if (!list.includes(num))
         {
             list.push(num);
-            i++;
         }
-    }while(i < mines)
+    }while(list.length < mines)
 
     return list;    
 }
