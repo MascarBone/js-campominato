@@ -20,7 +20,7 @@
 
 
 let mineField = [];
-let totaleMine = 5;
+let totaleMine = 4;
 let totaleTentativi = 10;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
@@ -75,11 +75,13 @@ do
     let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e 100"));
     if (input100(inputNum))
     {
-        if(mineField.includes(inputNum))
+        // if(mineField.includes(inputNum))
+        if (verificaNumero(inputNum, mineField))
         {
             alert("Hai perso");
             break;
-        }else if (tries.includes(inputNum))
+        // }else if (tries.includes(inputNum))
+        }else if (verificaNumero(inputNum, tries))
         {
             alert("hai già inserito questo numero, prova con un altro");
         }else
@@ -97,6 +99,13 @@ do
 
 console.log(tries);
 
+// Condizione di vittoria
+if (totaleTentativi - mineField.length == tries.length)
+{  
+    alert("HAI VINTO" + "\n" + "Il numero di tentativi effettuati è : " + tries.length);
+}
+
+
 function input100 (num)
 {
     if (num > 0 && num <= 100 && !(isNaN(num)))
@@ -106,4 +115,16 @@ function input100 (num)
     else{
         return false;
     }
+}
+
+function verificaNumero (num, lista)
+{
+    for (let i = 0; i < lista.length; i++)
+    {
+        if (lista[i] === num)
+        {
+            return true;
+        }
+    }
+    return false;
 }
