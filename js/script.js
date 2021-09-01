@@ -4,7 +4,6 @@
 
     In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta,
     sempre compreso tra 1 e 100.
-
     L’utente non può inserire più volte lo stesso numero.
     Se il numero è presente nella lista dei numeri generati, la partita termina,
     altrimenti si continua chiedendo all’utente un altro numero.
@@ -21,11 +20,13 @@
 
 
 let mineField = [];
+let totaleMine = 5;
+let totaleTentativi = 10;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
 // Creazione dell'array con un numero prestabilito di mine
-mineField = minaSetting(5);
+mineField = minaSetting(totaleMine);
 
 // Ordinamento dell'array
 mineField.sort(function(a, b) {
@@ -47,14 +48,62 @@ function minaSetting (mines)
     let i = 0;
     do
     {
-        let input = genNum(100,1);
+        let num = genNum(100,1);
 
-        if (!list.includes(input))
+        if (!list.includes(num))
         {
-            list.push(input);
+            list.push(num);
             i++;
         }
     }while(i < mines)
 
     return list;    
+}
+
+
+
+
+// Creare un array per contenere i tentativi inseriti dall'utente
+// Verificare che il numero inserito sia compreso tra 1 e 100 (inclusi)
+// Non permettere l'inserimento dello stesso numero due volte, messaggio a schermo di avvertimento
+// Se il numero è presente nella lista delle mine, la partita termina
+
+let tries = [];
+
+do
+{
+    let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e 100"));
+    if (input100(inputNum))
+    {
+        if(mineField.includes(inputNum))
+        {
+            alert("Hai perso");
+            break;
+        }else if (tries.includes(inputNum))
+        {
+            alert("hai già inserito questo numero, prova con un altro");
+        }else
+        {            
+            tries.push(inputNum);
+        }
+
+    }
+    else
+    {
+        alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
+    }
+
+}while (tries.length < totaleTentativi - mineField.length)
+
+console.log(tries);
+
+function input100 (num)
+{
+    if (num > 0 && num <= 100 && !(isNaN(num)))
+    {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
