@@ -26,7 +26,7 @@ let totaleTentativi = 10;
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
 // Creazione dell'array con un numero prestabilito di mine
-mineField = minaSetting(totaleMine);
+mineField = minaSetting(totaleMine, totaleTentativi);
 
 // Ordinamento dell'array
 mineField.sort(function(a, b) {
@@ -42,12 +42,12 @@ function genNum (max, min)
 }
 
 // Funzione per creare un array, aggiungendo un numero compreso tra 1 e 100 (mai un duplicato)
-function minaSetting (mines)
+function minaSetting (mines, totaleTentativi)
 {
     let list = [];
     do
     {
-        let num = genNum(100,1);
+        let num = genNum(totaleTentativi,1);
 
         if (!list.includes(num))
         {
@@ -70,7 +70,7 @@ let tries = [];
 
 do
 {
-    let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e 100"));
+    let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totaleTentativi));
     if (input100(inputNum))
     {
         // if(mineField.includes(inputNum))
