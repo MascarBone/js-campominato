@@ -20,8 +20,8 @@
 
 
 let mineField = [];
-let totaleMine = 4;
-let totaleTentativi = 10;
+let totaleMine = 16;
+let totaleTentativi = 100;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
