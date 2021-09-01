@@ -1,4 +1,6 @@
 /*
+A)
+
     Il computer deve generare 16 numeri casuali tra 1 e 100.
     I numeri non possono essere duplicati.
 
@@ -12,11 +14,22 @@
     o raggiunge il numero massimo possibile di numeri consentiti.
     Al termine della partita il software deve comunicare il punteggio,
     cioè il numero di volte che l’utente ha inserito un numero consentito.
+
+B)
+
+    All'inizio il software richiede anche una difficoltà all'utente
+    Cambia il range di numeri casuali: con difficoltà 0 => tra 1 e 100
+    con difficoltà 1 => tra 1 e 80 con difficoltà 2 => tra 1 e 50
 */
 
 // Creare un array che contenga i numeri casuali.
 // Creare una funzione per generare un numero casuale indicato il valore massimo.
 // Creare una funzione che aggiunge il valore all'array, ma non se è già prensete
+
+// Creare un array per contenere i tentativi inseriti dall'utente
+// Verificare che il numero inserito sia compreso tra 1 e 100 (inclusi)
+// Non permettere l'inserimento dello stesso numero due volte, messaggio a schermo di avvertimento
+// Se il numero è presente nella lista delle mine, la partita termina
 
 
 let mineField = [];
@@ -35,36 +48,10 @@ mineField.sort(function(a, b) {
 
 console.log(mineField);
 
-// Funzione per generare un numero casuale compreso in un intervallo (min e max inclusi)
-function genNum (max, min)
-{
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Funzione per creare un array, aggiungendo un numero compreso tra 1 e 100 (mai un duplicato)
-function minaSetting (mines, totaleTentativi)
-{
-    let list = [];
-    do
-    {
-        let num = genNum(totaleTentativi,1);
-
-        if (!list.includes(num))
-        {
-            list.push(num);
-        }
-    }while(list.length < mines)
-
-    return list;    
-}
 
 
 
 
-// Creare un array per contenere i tentativi inseriti dall'utente
-// Verificare che il numero inserito sia compreso tra 1 e 100 (inclusi)
-// Non permettere l'inserimento dello stesso numero due volte, messaggio a schermo di avvertimento
-// Se il numero è presente nella lista delle mine, la partita termina
 
 let tries = [];
 
@@ -104,6 +91,30 @@ if (totaleTentativi - mineField.length == tries.length)
 }
 
 
+// Funzione per generare un numero casuale compreso in un intervallo (min e max inclusi)
+function genNum (max, min)
+{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Funzione per creare un array, aggiungendo un numero compreso tra 1 e 100 (mai un duplicato)
+function minaSetting (mines, totaleTentativi)
+{
+    let list = [];
+    do
+    {
+        let num = genNum(totaleTentativi,1);
+
+        if (!list.includes(num))
+        {
+            list.push(num);
+        }
+    }while(list.length < mines)
+
+    return list;    
+}
+
+// Funzione per verificare che l'input sia un numero compreso tra 1 e 100 inclusi
 function input100 (num)
 {
     if (num > 0 && num <= 100 && !(isNaN(num)))
@@ -115,6 +126,7 @@ function input100 (num)
     }
 }
 
+// Funzione per verificare la presenza di un numero all'interno di un array
 function verificaNumero (num, lista)
 {
     for (let i = 0; i < lista.length; i++)
