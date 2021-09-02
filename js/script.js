@@ -33,10 +33,15 @@ B)
 
 
 let mineField = [];
-let totaleMine = 4;
-let totaleTentativi = 10;
+let totaleMine = 16;
+let totaleTentativi = 0;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
+
+// Scelta della difficoltà(totaleTentativi)
+totaleTentativi = selectDifficulty(difficulty());
+
+console.log(totaleTentativi);
 
 // Creazione dell'array con un numero prestabilito di mine
 mineField = minaSetting(totaleMine, totaleTentativi);
@@ -52,7 +57,7 @@ console.log(mineField);
 
 
 
-
+alert("");
 let tries = [];
 
 do
@@ -137,4 +142,35 @@ function verificaNumero (num, lista)
         }
     }
     return false;
+}
+
+function difficulty ()
+{
+    let input;
+    do
+    {
+        input = parseInt (prompt ("Imposta la difficoltà\n0- Facile\n1- Medio\n2- Difficile"));
+        console.log(input);
+    }while (isNaN(input) || input < 0 || input > 2)
+
+    return input;
+}
+
+function selectDifficulty (num)
+{
+    switch (num)
+    {
+        case 0:
+            num = 100;
+           break;
+        case 1:
+            num = 80;
+            break;
+        case 2:
+            num = 50;
+            break;
+        default:
+            return -1;
+    }
+    return num;
 }
