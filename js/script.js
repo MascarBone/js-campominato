@@ -34,17 +34,17 @@ B)
 
 let mineField = [];
 let totaleMine = 16;
-let totaleTentativi = 0;
+let Campo = 0;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
 // Scelta della difficoltà(totaleTentativi)
-totaleTentativi = selectDifficulty(difficulty());
+Campo = selectDifficulty(difficulty());
 
-console.log(totaleTentativi);
+console.log(Campo);
 
 // Creazione dell'array con un numero prestabilito di mine
-mineField = minaSetting(totaleMine, totaleTentativi);
+mineField = minaSetting(totaleMine, Campo);
 
 // Ordinamento dell'array
 mineField.sort(function(a, b) {
@@ -54,47 +54,85 @@ mineField.sort(function(a, b) {
 console.log(mineField);
 
 
+alert("pause");
 
-
-
-alert("");
 let tries = [];
 
-do
+gameplay(mineField, tries, Campo);
+
+// do
+// {
+//     let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + Campo));
+//     if (input100(inputNum))
+//     {
+//         // if(mineField.includes(inputNum))
+//         if (verificaNumero(inputNum, mineField))
+//         {
+//             alert("Hai perso");
+//             break;
+//         // }else if (tries.includes(inputNum))
+//         }else if (verificaNumero(inputNum, tries))
+//         {
+//             alert("hai già inserito questo numero, prova con un altro");
+//         }else
+//         {            
+//             tries.push(inputNum);
+//         }
+
+//     }
+//     else
+//     {
+//         alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
+//     }
+
+// }while (tries.length < Campo - mineField.length)
+
+// console.log(tries);
+
+// // Condizione di vittoria
+// if (Campo - mineField.length == tries.length)
+// {  
+//     alert("HAI VINTO" + "\n" + "Il numero di tentativi effettuati è : " + tries.length);
+// }
+
+// Funzione per il ciclo dell'inserimento valori dell'utente
+function gameplay (arrMines, arrUtente, totCampo)
 {
-    let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totaleTentativi));
-    if (input100(inputNum))
+    do
     {
-        // if(mineField.includes(inputNum))
-        if (verificaNumero(inputNum, mineField))
+        let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totCampo));
+        if (input100(inputNum,totCampo))
         {
-            alert("Hai perso");
-            break;
-        // }else if (tries.includes(inputNum))
-        }else if (verificaNumero(inputNum, tries))
-        {
-            alert("hai già inserito questo numero, prova con un altro");
-        }else
-        {            
-            tries.push(inputNum);
+            // if(mineField.includes(inputNum))
+            if (verificaNumero(inputNum, arrMines))
+            {
+                alert("Hai perso\nIl punteggio è : " + arrUtente.length);
+                break;
+            // }else if (tries.includes(inputNum))
+            }else if (verificaNumero(inputNum, tries))
+            {
+                alert("hai già inserito questo numero, prova con un altro");
+            }else
+            {            
+                arrUtente.push(inputNum);
+            }
+    
         }
-
+        else
+        {
+            alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
+        }
+    
+    }while (arrUtente.length < totCampo - arrMines.length)
+    
+    console.log(arrUtente);
+    
+    // Condizione di vittoria
+    if (totCampo - arrMines.length == arrUtente.length)
+    {  
+        alert("HAI VINTO" + "\n" + "Il punteggio è : " + arrUtente.length);
     }
-    else
-    {
-        alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
-    }
-
-}while (tries.length < totaleTentativi - mineField.length)
-
-console.log(tries);
-
-// Condizione di vittoria
-if (totaleTentativi - mineField.length == tries.length)
-{  
-    alert("HAI VINTO" + "\n" + "Il numero di tentativi effettuati è : " + tries.length);
 }
-
 
 // Funzione per generare un numero casuale compreso in un intervallo (min e max inclusi)
 function genNum (max, min)
@@ -103,12 +141,12 @@ function genNum (max, min)
 }
 
 // Funzione per creare un array, aggiungendo un numero compreso tra 1 e 100 (mai un duplicato)
-function minaSetting (mines, totaleTentativi)
+function minaSetting (mines, totCampo)
 {
     let list = [];
     do
     {
-        let num = genNum(totaleTentativi,1);
+        let num = genNum(totCampo,1);
 
         if (!list.includes(num))
         {
@@ -120,9 +158,10 @@ function minaSetting (mines, totaleTentativi)
 }
 
 // Funzione per verificare che l'input sia un numero compreso tra 1 e 100 inclusi
-function input100 (num)
+function input100 (num, max)
 {
-    if (num > 0 && num <= 100 && !(isNaN(num)))
+    // Sostituire il 100 con una variabile max
+    if (num > 0 && num <= max && !(isNaN(num)))
     {
         return true;
     }
@@ -144,6 +183,8 @@ function verificaNumero (num, lista)
     return false;
 }
 
+
+// Funzione per far scegliere la difficoltà
 function difficulty ()
 {
     let input;
@@ -156,13 +197,14 @@ function difficulty ()
     return input;
 }
 
+// Funzione per impostare il numero di slot all'intenro dell'array
 function selectDifficulty (num)
 {
     switch (num)
     {
         case 0:
             num = 100;
-           break;
+            break;
         case 1:
             num = 80;
             break;
