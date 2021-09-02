@@ -32,7 +32,7 @@ B)
 // Se il numero è presente nella lista delle mine, la partita termina
 
 
-let mineField = [];
+let listaMine = [];
 let totaleMine = 16;
 let campo = 0;
 
@@ -41,94 +41,92 @@ let campo = 0;
 // Scelta della difficoltà(totaleTentativi)
 campo = selectDifficulty(difficulty());
 
-console.log(campo);
+// Creazione della griglia a schermo e creazione di un array contenente la posizione di ogni singola cella
+let listaCampo = creazioneGriglia (campo);
+
 
 // Creazione dell'array con un numero prestabilito di mine
-mineField = minaSetting(totaleMine, campo);
+listaMine = minaSetting(totaleMine, campo);
 
 // Ordinamento dell'array
-mineField.sort(function(a, b) {
-    return a - b;
-});
+listaMine = ordinaArray(listaMine);
 
-console.log(mineField);
+// for(let i = 0; i < listaCampo.length; i++)
+// {
+//     listaCampo[i].addEventListener('click', function(){
+//         listaCampo[i].classList.add('bg-green');
+//     });
+// }
+for(let i = 0; i < listaCampo.length; i++)
+{
+    listaCampo[i].addEventListener('click', function(){
+        gameplay(listaMine, listaTentativi, listaCampo, campo, i);        
+    });
+}
 
+console.log(listaMine);
 
-alert("pause");
-
-let tries = [];
-
-gameplay(mineField, tries, campo);
+let listaTentativi = [];
 
 // do
-// {
-//     let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + campo));
-//     if (input100(inputNum))
 //     {
-//         // if(mineField.includes(inputNum))
-//         if (verificaNumero(inputNum, mineField))
+//         let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totCampo));
+        
+//         if (input100(inputNum,totCampo))
 //         {
-//             alert("Hai perso");
-//             break;
-//         // }else if (tries.includes(inputNum))
-//         }else if (verificaNumero(inputNum, tries))
-//         {
-//             alert("hai già inserito questo numero, prova con un altro");
-//         }else
-//         {            
-//             tries.push(inputNum);
+//             // if(arrMine.includes(inputNum))
+//             if (verificaNumero(inputNum, arrMine))
+//             {
+//                 alert("Hai perso\nIl punteggio è : " + arrUtente.length);
+//                 break;
+//             // }else if (arrUtente.includes(inputNum))
+//             }else if (verificaNumero(inputNum, arrUtente))
+//             {
+//                 alert("hai già inserito questo numero, prova con un altro");
+//             }else
+//             {            
+//                 arrUtente.push(inputNum);
+//             }
+    
 //         }
-
+//         else
+//         {
+//             alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
+//         }
+    
+//     }while (arrUtente.length < totCampo - arrMine.length)
+    
+//     console.log(arrUtente);
+    
+//     // Condizione di vittoria
+//     if (totCampo - arrMine.length == arrUtente.length)
+//     {  
+//         alert("HAI VINTO" + "\n" + "Il punteggio è : " + arrUtente.length);
 //     }
-//     else
-//     {
-//         alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
-//     }
-
-// }while (tries.length < campo - mineField.length)
-
-// console.log(tries);
-
-// // Condizione di vittoria
-// if (campo - mineField.length == tries.length)
-// {  
-//     alert("HAI VINTO" + "\n" + "Il numero di tentativi effettuati è : " + tries.length);
-// }
 
 // Funzione per il ciclo dell'inserimento valori dell'utente
-function gameplay (arrMines, arrUtente, totCampo)
+function gameplay (arrMine, arrUtente, arrCampo, totCampo, scelta)
 {
-    do
+    let sceltaArr = scelta + 1;
+    // let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totCampo));
+    if (verificaNumero(sceltaArr, arrMine))
     {
-        let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + totCampo));
-        if (input100(inputNum,totCampo))
-        {
-            // if(mineField.includes(inputNum))
-            if (verificaNumero(inputNum, arrMines))
-            {
-                alert("Hai perso\nIl punteggio è : " + arrUtente.length);
-                break;
-            // }else if (tries.includes(inputNum))
-            }else if (verificaNumero(inputNum, tries))
-            {
-                alert("hai già inserito questo numero, prova con un altro");
-            }else
-            {            
-                arrUtente.push(inputNum);
-            }
+        alert("Hai perso\nIl punteggio è : " + arrUtente.length);
+    }else if (verificaNumero(sceltaArr, arrUtente))
+    {
+        alert("hai già inserito questo numero, prova con un altro");
+    }else
+    {            
+        arrUtente.push(sceltaArr);
+        console.log(scelta);
+        arrCampo[scelta].classList.add('bg-green');
+    }
     
-        }
-        else
-        {
-            alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
-        }
-    
-    }while (arrUtente.length < totCampo - arrMines.length)
     
     console.log(arrUtente);
     
     // Condizione di vittoria
-    if (totCampo - arrMines.length == arrUtente.length)
+    if (totCampo - arrMine.length == arrUtente.length)
     {  
         alert("HAI VINTO" + "\n" + "Il punteggio è : " + arrUtente.length);
     }
@@ -138,6 +136,14 @@ function gameplay (arrMines, arrUtente, totCampo)
 function genNum (max, min)
 {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Funzione per ordinare un array 
+function ordinaArray (arr)
+{
+    return arr.sort(function(a, b){
+        return a - b;
+    })
 }
 
 // Funzione per creare un array, aggiungendo un numero compreso tra 1 e totCampo (mai un duplicato)
@@ -190,7 +196,6 @@ function difficulty ()
     do
     {
         input = parseInt (prompt ("Imposta la difficoltà\n0- Facile\n1- Medio\n2- Difficile"));
-        console.log(input);
     }while (isNaN(input) || input < 0 || input > 2)
 
     return input;
@@ -214,4 +219,34 @@ function selectDifficulty (num)
             return -1;
     }
     return num;
+}
+
+// Funzione per la creazione della griglia sullo schermo
+
+function creazioneGriglia (numCaselle)
+{
+    document.getElementById('campo-minato').innerHTML = "";
+
+    for (let i = 0; i < numCaselle/10; i++)
+    {
+        document.getElementById('campo-minato').innerHTML += "<div class=\"container\"><div class=\"row riga\">";
+    }
+
+    let listaRighe = [];
+    listaRighe = document.getElementsByClassName('riga');
+    for (let j = 0; j < numCaselle/10; j++)
+    {
+        for(let k = 0; k < 10; k++)
+        {
+            listaRighe[j].innerHTML += "<div class=\"col casella bordo\"><span class=\"punto\"></span>";
+        }           
+    }
+
+    let listaColonne = document.getElementsByClassName('punto');
+    for (let i = 0; i < listaColonne.length; i++)
+    {
+        listaColonne[i].innerHTML = i+1;
+    }
+    
+    return lista = document.getElementsByClassName('casella');
 }
