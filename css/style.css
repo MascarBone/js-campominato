@@ -1,0 +1,40 @@
+:root {--altezza: 40px;}
+
+.bordo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    text-align: center;
+    height: var(--altezza);
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 576px)
+{
+    :root {--altezza: calc( 520px / 10)}
+}
+@media screen and (min-width: 768px)
+{
+    :root {--altezza: calc( 720px / 10)}
+}
+@media screen and (min-width: 992px)
+{
+    :root {--altezza: calc( 960px / 10)}
+}
+@media screen and (min-width: 1200px)
+{
+    :root {--altezza: calc( 1140px / 10)}
+}
+@media screen and (min-width: 1400px)
+{
+    :root {--altezza: calc( 1320px / 10)}
+}

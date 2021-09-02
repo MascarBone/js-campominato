@@ -34,17 +34,17 @@ B)
 
 let mineField = [];
 let totaleMine = 16;
-let Campo = 0;
+let campo = 0;
 
 // let numMines = parseInt(prompt("Inserisci il numero di Mine"));
 
 // Scelta della difficoltà(totaleTentativi)
-Campo = selectDifficulty(difficulty());
+campo = selectDifficulty(difficulty());
 
-console.log(Campo);
+console.log(campo);
 
 // Creazione dell'array con un numero prestabilito di mine
-mineField = minaSetting(totaleMine, Campo);
+mineField = minaSetting(totaleMine, campo);
 
 // Ordinamento dell'array
 mineField.sort(function(a, b) {
@@ -58,11 +58,11 @@ alert("pause");
 
 let tries = [];
 
-gameplay(mineField, tries, Campo);
+gameplay(mineField, tries, campo);
 
 // do
 // {
-//     let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + Campo));
+//     let inputNum = parseInt(prompt ("Inserisci un numero compreso tra 1 e " + campo));
 //     if (input100(inputNum))
 //     {
 //         // if(mineField.includes(inputNum))
@@ -85,12 +85,12 @@ gameplay(mineField, tries, Campo);
 //         alert("HAI INSERITO UN VALORE NON VALIDO " + inputNum);
 //     }
 
-// }while (tries.length < Campo - mineField.length)
+// }while (tries.length < campo - mineField.length)
 
 // console.log(tries);
 
 // // Condizione di vittoria
-// if (Campo - mineField.length == tries.length)
+// if (campo - mineField.length == tries.length)
 // {  
 //     alert("HAI VINTO" + "\n" + "Il numero di tentativi effettuati è : " + tries.length);
 // }
@@ -140,7 +140,7 @@ function genNum (max, min)
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Funzione per creare un array, aggiungendo un numero compreso tra 1 e 100 (mai un duplicato)
+// Funzione per creare un array, aggiungendo un numero compreso tra 1 e totCampo (mai un duplicato)
 function minaSetting (mines, totCampo)
 {
     let list = [];
@@ -157,10 +157,9 @@ function minaSetting (mines, totCampo)
     return list;    
 }
 
-// Funzione per verificare che l'input sia un numero compreso tra 1 e 100 inclusi
+// Funzione per verificare che l'input sia un numero compreso tra 1 e max inclusi
 function input100 (num, max)
 {
-    // Sostituire il 100 con una variabile max
     if (num > 0 && num <= max && !(isNaN(num)))
     {
         return true;
